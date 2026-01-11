@@ -1,5 +1,12 @@
 [
   {
+    "slug": "mission-2031",
+    "title": "Mission 2031",
+    "date": "2026-01-13T00:00:00.000Z",
+    "excerpt": "Rural Development Initiative: Mission 2031\nContext",
+    "coverImage": "/assets/images/1768136867639-Aposteron2k202601060100.jpeg"
+  },
+  {
     "slug": "hello-world",
     "title": "Hello World: The Future of Static CMS",
     "date": "2023-10-27T10:00:00Z",
