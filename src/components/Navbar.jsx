@@ -8,52 +8,79 @@ export default function Navbar() {
 
     const links = [
         { name: 'Home', path: '/' },
-        { name: 'About Mission 2031', path: '/about' },
-        { name: 'How MSR Works', path: '/msr' },
-        { name: 'Articles & Ideas', path: '/#articles' },
+        { name: 'About', path: '/about' },
+        { name: 'MSR Framework', path: '/msr' },
+        { name: 'Articles', path: '/#articles' },
         { name: 'Admin', path: '/admin' },
     ];
 
     return (
-        <nav className="glass-nav">
+        <nav className="glass-nav" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
             <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '70px' }}>
                 {/* Logo */}
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.25rem', fontWeight: 'bold' }}>
-                    <div style={{ background: 'var(--gradient-brand)', borderRadius: '8px', padding: '6px', color: 'white', display: 'flex' }}>
+                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.25rem', fontWeight: 'bold' }} onClick={() => setIsOpen(false)}>
+                    <div style={{ background: 'var(--gradient-brand)', borderRadius: '8px', padding: '6px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Rocket size={20} />
                     </div>
                     <span>Mission 2031</span>
                 </Link>
 
-                {/* Desktop Links */}
-                <div style={{ display: 'none', gap: '2rem', md: { display: 'flex' } }} className="desktop-menu">
+                {/* Desktop Links (Hidden on Mobile) */}
+                <div className="desktop-links" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                     {links.map(link => (
-                        <a
-                            key={link.name}
-                            href={link.path}
-                            className={`nav-link ${location.hash === link.path.split('#')[1] ? 'active' : ''}`}
-                            style={{ display: 'none' }} // Hidden by default, shown via CSS query in simpler way via style override for now? No, let's use a media query trick or just inline style for simplicity if we can. Actually, let's just make it visible for now and hide mobile.
-                        >
+                        <a key={link.name} href={link.path} className="nav-link" style={{ fontSize: '0.95rem', fontWeight: '500' }}>
                             {link.name}
                         </a>
                     ))}
-                    {/* Simplified Desktop View (using inline styles for responsiveness is hard without utility classes context, but will rely on a media query block in CSS or simple toggle) */}
-                    {/* Actually, let's just render them and use a CSS class for hiding on mobile */}
                 </div>
 
-                {/* Since we don't have Tailwind, let's just do a simple list that wraps or a hamburger */}
-                <div className="desktop-links" style={{ display: 'flex', gap: '20px' }}>
-                    {links.map(link => (
-                        <a key={link.name} href={link.path} className="nav-link" style={{ fontSize: '0.9rem' }}>
-                            {link.name}
-                        </a>
-                    ))}
-                </div>
+                {/* Mobile Toggle Button (Visible on Mobile) */}
+                <button
+                    className="mobile-toggle"
+                    onClick={() => setIsOpen(!isOpen)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: 'var(--color-text-main)' }}
+                >
+                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
             </div>
 
+            {/* Mobile Menu Dropdown */}
+            {isOpen && (
+                <div className="mobile-menu" style={{
+                    position: 'absolute',
+                    top: '70px',
+                    left: 0,
+                    right: 0,
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    borderBottom: '1px solid var(--color-border)',
+                    padding: 'var(--space-4)',
+                    boxShadow: 'var(--shadow-lg)'
+                }}>
+                    <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                        {links.map(link => (
+                            <a
+                                key={link.name}
+                                href={link.path}
+                                className="nav-link"
+                                style={{ fontSize: '1.1rem', padding: '8px 0', borderBottom: '1px solid var(--color-surface-200)' }}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {link.name}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             <style>{`
+                .mobile-toggle { display: none !important; }
+                .mobile-menu { display: none; }
+                
                 @media (max-width: 768px) {
                     .desktop-links { display: none !important; }
+                    .mobile-toggle { display: block !important; }
+                    .mobile-menu { display: block; }
                 }
             `}</style>
         </nav>
