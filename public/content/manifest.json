@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "hello-world",
+        "title": "Hello World: The Future of Static CMS",
+        "date": "2023-10-27T10:00:00Z",
+        "excerpt": "Welcome to the new era of serverless content management. Fast, secure, and free."
+    },
+    {
+        "slug": "second-post",
+        "title": "Why Markdown and JSON Rule",
+        "date": "2023-10-28T14:30:00Z",
+        "excerpt": "Exploring the architectural decisions behind this headless, git-based CMS."
+    }
+]

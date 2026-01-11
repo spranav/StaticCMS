@@ -1,0 +1,5 @@
+{
+    "title": "Why Markdown and JSON Rule",
+    "date": "2023-10-28T14:30:00Z",
+    "content": "# The Architecture\n\nWe chose **JSON** for metadata and **Markdown** for content.\n\n### Benefits\n- **Security**: No dangerous HTML Injection.\n- **Portability**: Easy to migrate to other platforms.\n- **Performance**: Static files are cached globally.\n\n```javascript\nconsole.log('Hello from the code block!');\n```\n\nCheck out the repo for more info."
+}

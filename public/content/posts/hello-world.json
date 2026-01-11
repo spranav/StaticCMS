@@ -1,0 +1,5 @@
+{
+    "title": "Hello World: The Future of Static CMS",
+    "date": "2023-10-27T10:00:00Z",
+    "content": "# Welcome to the Future\n\nThis is a demonstration of a **Serverless CMS** that runs entirely in the browser.\n\n## How it works\n1. Content is stored as JSON files on GitHub.\n2. The specific viewer fetches them on demand.\n3. Admin panel commits changes directly to the repo.\n\n> \"Simplicity is the ultimate sophistication.\" - Leonardo da Vinci\n\n![Placeholder Image](https://images.unsplash.com/photo-1499750310159-5b5f8c673fb7?q=80&w=2600&auto=format&fit=crop)"
+}
