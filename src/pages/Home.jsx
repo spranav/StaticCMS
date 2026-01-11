@@ -14,6 +14,7 @@ export default function Home() {
         });
     }, []);
 
+
     if (loading) {
         return (
             <div className="container" style={{ marginTop: 'var(--space-12)', textAlign: 'center' }}>
