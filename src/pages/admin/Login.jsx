@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useContentAuth } from '../../hooks/useContentAuth';
 import { Lock, Github, Key, Database } from 'lucide-react';
 
 export default function Login() {
-    const { isEncrypted, setup, login, loading, clearStorage } = useAuth();
+    const { isEncrypted, setup, login, loading, clearStorage } = useContentAuth();
     const navigate = useNavigate();
 
     const [passphrase, setPassphrase] = useState('');

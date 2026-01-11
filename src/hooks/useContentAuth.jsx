@@ -71,10 +71,10 @@ export function AuthProvider({ children }) {
 }
 
 // Custom Hook to use the Context
-export function useAuth() {
+export function useContentAuth() {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error('useContentAuth must be used within an AuthProvider');
     }
     return context;
 }

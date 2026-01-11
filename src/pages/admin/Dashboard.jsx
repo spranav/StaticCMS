@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useContentAuth } from '../../hooks/useContentAuth';
 import { getManifest } from '../../lib/cms';
 import Fuse from 'fuse.js';
 import AdminLayout from './AdminLayout';
 import { Plus, Search, Edit, Trash2 } from 'lucide-react';
 
 export default function Dashboard() {
-    const { token, loading: authLoading } = useAuth();
+    const { token, loading: authLoading } = useContentAuth();
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [search, setSearch] = useState('');

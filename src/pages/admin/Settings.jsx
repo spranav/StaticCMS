@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
+import { useContentAuth } from '../../hooks/useContentAuth';
 import AdminLayout from './AdminLayout';
 
 export default function Settings() {
-    const { repo, clearStorage } = useAuth();
+    const { repo, clearStorage } = useContentAuth();
 
     const handleReset = () => {
         if (confirm("Are you sure? You will need to re-enter your GitHub Token and Passphrase.")) {

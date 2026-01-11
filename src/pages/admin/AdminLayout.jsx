@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useContentAuth } from '../../hooks/useContentAuth';
 import { LogOut, Home, LayoutDashboard } from 'lucide-react';
 
 export default function AdminLayout({ children, title }) {
-    const { logout, token } = useAuth();
+    const { logout, token } = useContentAuth();
     const navigate = useNavigate();
 
     // Basic protection: If not token (and not loading), we should redirect.

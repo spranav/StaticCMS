@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useContentAuth } from '../../hooks/useContentAuth';
 import { getPost, getManifest } from '../../lib/cms';
 import { getFileSha, uploadFile, uploadAsset } from '../../lib/github';
 import AdminLayout from './AdminLayout';
@@ -8,7 +8,7 @@ import { Save, ArrowLeft, Image as ImageIcon, Loader } from 'lucide-react';
 
 export default function Editor() {
     const { slug: urlSlug } = useParams(); // If present, we are editing
-    const { token, repo, loading: authLoading } = useAuth();
+    const { token, repo, loading: authLoading } = useContentAuth();
     const navigate = useNavigate();
 
     // Form State
@@ -54,7 +54,7 @@ export default function Editor() {
                         if (entry) setExcerpt(entry.excerpt || '');
 
                         // Get Post SHA for concurrency
-                        const pSha = await getFileSha(repo, `public/content/posts/${urlSlug}.json`, token);
+                        const pSha = await getFileSha(repo, `public / content / posts / ${urlSlug}.json`, token);
                         setPostSha(pSha);
                     }
                 } else {
@@ -90,13 +90,13 @@ export default function Editor() {
         setStatus('Uploading image...');
         try {
             const arrayBuffer = await file.arrayBuffer();
-            const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
-            const path = `public/assets/images/${filename}`;
+            const filename = `${Date.now()} -${file.name.replace(/[^a-zA-Z0-9.-]/g, '')} `;
+            const path = `public / assets / images / ${filename} `;
 
             await uploadAsset(repo, path, arrayBuffer, token);
 
             // Append Markdown
-            const imageMd = `\n![${file.name}](/assets/images/${filename})\n`;
+            const imageMd = `\n![${file.name}](/assets/images / ${filename}) \n`;
             setContent(prev => prev + imageMd);
             setStatus('Image uploaded!');
         } catch (err) {
@@ -157,24 +157,24 @@ export default function Editor() {
             // 3. Upload Post Content
             await uploadFile(
                 repo,
-                `public/content/posts/${slug}.json`,
+                `public / content / posts / ${slug}.json`,
                 JSON.stringify(postData, null, 2),
-                `Update post ${slug}`,
+                `Update post ${slug} `,
                 token,
                 postSha // Might be null if new
             );
 
             setStatus('Saved successfully!');
             setManifestSha(await getFileSha(repo, 'public/content/manifest.json', token)); // Update SHAs
-            setPostSha(await getFileSha(repo, `public/content/posts/${slug}.json`, token));
+            setPostSha(await getFileSha(repo, `public / content / posts / ${slug}.json`, token));
 
             // If new, navigate to edit URL
             if (!urlSlug) {
-                navigate(`/admin/editor/${slug}`, { replace: true });
+                navigate(`/ admin / editor / ${slug} `, { replace: true });
             }
         } catch (err) {
             console.error(err);
-            setStatus(`Error saving: ${err.message}`);
+            setStatus(`Error saving: ${err.message} `);
         }
         setSaving(false);
     };
