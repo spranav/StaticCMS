@@ -4,6 +4,16 @@ import { getPost } from '../lib/cms';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import { ArrowLeft, Calendar } from 'lucide-react';
 
+// Helper to get raw image URL (Same as Home, should be in a util but duping for speed)
+const getImageUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith('http')) return path;
+    const REPO = 'spranav/StaticCMS';
+    const BRANCH = 'main';
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public/${cleanPath}`;
+};
+
 export default function Post() {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
@@ -44,7 +54,7 @@ export default function Post() {
                     {post.coverImage && (
                         <div style={{ marginBottom: 'var(--space-6)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', maxHeight: '400px' }}>
                             <img
-                                src={post.coverImage}
+                                src={getImageUrl(post.coverImage)}
                                 alt={post.title}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             />

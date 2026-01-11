@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom';
 import { getManifest } from '../lib/cms';
 import { Calendar, ArrowRight } from 'lucide-react';
 
+// Helper to get raw image URL
+const getImageUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith('http')) return path;
+    const REPO = 'spranav/StaticCMS';
+    const BRANCH = 'main';
+    // Remove leading slash if present
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public/${cleanPath}`;
+};
+
 export default function Home() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,7 +47,7 @@ export default function Home() {
                         {post.coverImage && (
                             <div style={{ height: '200px', overflow: 'hidden' }}>
                                 <img
-                                    src={post.coverImage}
+                                    src={getImageUrl(post.coverImage)}
                                     alt={post.title}
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
