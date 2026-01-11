@@ -4,7 +4,7 @@ import { useContentAuth } from '../../hooks/useContentAuth';
 import { getManifest } from '../../lib/cms';
 import Fuse from 'fuse.js';
 import AdminLayout from './AdminLayout';
-import { Plus, Search, Edit, Trash2 } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, Eye } from 'lucide-react';
 
 export default function Dashboard() {
     const { token, loading: authLoading } = useContentAuth();
@@ -68,6 +68,9 @@ export default function Dashboard() {
                                 </span>
                             </div>
                             <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+                                <a href={`/post/${post.slug}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                                    <Eye size={16} /> View
+                                </a>
                                 <Link to={`/admin/editor/${post.slug}`} className="btn btn-secondary">
                                     <Edit size={16} /> Edit
                                 </Link>

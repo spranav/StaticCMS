@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContentAuth } from '../../hooks/useContentAuth';
-import { LogOut, Home, LayoutDashboard } from 'lucide-react';
+import { LogOut, Home, LayoutDashboard, Rocket } from 'lucide-react';
 
 export default function AdminLayout({ children, title }) {
     const { logout, token } = useContentAuth();
@@ -21,7 +21,10 @@ export default function AdminLayout({ children, title }) {
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
                         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--color-brand-600)' }}>
-                            CMS
+                            <div style={{ background: 'var(--gradient-brand)', borderRadius: '8px', padding: '6px', color: 'white', display: 'flex' }}>
+                                <Rocket size={20} />
+                            </div>
+                            <span className="text-gradient">Mission 2031</span>
                         </Link>
                         <div style={{ height: '24px', width: '1px', background: 'var(--color-border)' }}></div>
                         <Link to="/admin/dashboard" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-main)' }}>

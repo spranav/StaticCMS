@@ -1,15 +1,16 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useContentAuth } from '../../hooks/useContentAuth';
 import { getPost, getManifest } from '../../lib/cms';
 import { getFileSha, uploadFile, uploadAsset } from '../../lib/github';
 import AdminLayout from './AdminLayout';
-import { Save, ArrowLeft, Image as ImageIcon, Loader } from 'lucide-react';
+import { Save, ArrowLeft, Image as ImageIcon, Loader, Bold, Italic, Link as LinkIcon, Heading, Quote, List, Eye } from 'lucide-react';
 
 export default function Editor() {
     const { slug: urlSlug } = useParams(); // If present, we are editing
     const { token, repo, loading: authLoading } = useContentAuth();
     const navigate = useNavigate();
+    const textareaRef = useRef(null);
 
     // Form State
     const [title, setTitle] = useState('');
@@ -28,6 +29,26 @@ export default function Editor() {
     useEffect(() => {
         if (!authLoading && !token) navigate('/admin/login');
     }, [authLoading, token, navigate]);
+
+    // Helper: Insert Markdown at cursor
+    const insertMarkdown = (prefix, suffix = '') => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        const selected = text.substring(start, end);
+
+        const newText = text.substring(0, start) + prefix + selected + suffix + text.substring(end);
+        setContent(newText);
+
+        // Restore cursor/selection
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + prefix.length, end + prefix.length);
+        }, 0);
+    };
 
     // Load Data
     useEffect(() => {
@@ -203,11 +224,26 @@ export default function Editor() {
                         />
                     </div>
 
+                    <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-4)', padding: 'var(--space-2)', background: 'var(--color-surface-100)', borderRadius: 'var(--radius-md)' }}>
+                        <button onClick={() => insertMarkdown('**', '**')} className="btn btn-secondary" title="Bold"><Bold size={16} /></button>
+                        <button onClick={() => insertMarkdown('*', '*')} className="btn btn-secondary" title="Italic"><Italic size={16} /></button>
+                        <button onClick={() => insertMarkdown('# ')} className="btn btn-secondary" title="Heading"><Heading size={16} /></button>
+                        <button onClick={() => insertMarkdown('> ')} className="btn btn-secondary" title="Quote"><Quote size={16} /></button>
+                        <button onClick={() => insertMarkdown('- ')} className="btn btn-secondary" title="List"><List size={16} /></button>
+                        <button onClick={() => insertMarkdown('[', '](url)')} className="btn btn-secondary" title="Link"><LinkIcon size={16} /></button>
+                        <div style={{ width: '1px', background: 'var(--color-border)', margin: '0 var(--space-2)' }}></div>
+                        <label className="btn btn-secondary" style={{ cursor: 'pointer' }} title="Upload Image">
+                            <ImageIcon size={16} />
+                            <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+                        </label>
+                    </div>
+
                     <textarea
+                        ref={textareaRef}
                         value={content}
                         onChange={e => setContent(e.target.value)}
                         placeholder="# Write your magic here..."
-                        style={{ width: '100%', minHeight: '500px', fontFamily: 'monospace', resize: 'vertical' }}
+                        style={{ width: '100%', minHeight: '500px', fontFamily: 'monospace', resize: 'vertical', lineHeight: '1.6', fontSize: '1rem' }}
                     />
                 </div>
 
@@ -218,6 +254,11 @@ export default function Editor() {
                             {saving ? <Loader className="spin" size={16} /> : <Save size={16} />}
                             {saving ? 'Saving...' : 'Save Changes'}
                         </button>
+                        {urlSlug && (
+                            <a href={`/post/${urlSlug}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', marginBottom: 'var(--space-2)' }}>
+                                <Eye size={16} /> View Live Post
+                            </a>
+                        )}
                         {status && <div style={{ fontSize: '0.85rem', color: status.includes('Error') ? 'red' : 'green', textAlign: 'center' }}>{status}</div>}
                     </div>
 

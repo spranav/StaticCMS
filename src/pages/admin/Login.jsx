@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContentAuth } from '../../hooks/useContentAuth';
-import { Lock, Github, Key, Database } from 'lucide-react';
+import { Lock, Github, Key, Database, Rocket } from 'lucide-react';
 
 export default function Login() {
     const { isEncrypted, setup, login, loading, clearStorage } = useContentAuth();
@@ -46,13 +46,21 @@ export default function Login() {
 
     return (
         <div className="container" style={{ marginTop: 'var(--space-12)', maxWidth: '400px' }}>
+            <div style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
+                <div style={{ background: 'var(--gradient-brand)', borderRadius: '12px', padding: '12px', color: 'white', display: 'inline-flex', marginBottom: 'var(--space-4)', boxShadow: 'var(--shadow-lg)' }}>
+                    <Rocket size={32} />
+                </div>
+                <h1 className="text-gradient" style={{ fontSize: '2rem', marginBottom: '0' }}>Mission 2031</h1>
+                <p style={{ color: 'var(--color-text-muted)', fontWeight: '500' }}>Administrative Access</p>
+            </div>
+
             <div className="card">
                 <header style={{ textAlign: 'center', marginBottom: 'var(--space-6)' }}>
-                    <h1 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)' }}>
-                        {showSetup ? 'Setup CMS' : 'Admin Login'}
-                    </h1>
-                    <p style={{ color: 'var(--color-text-muted)' }}>
-                        {showSetup ? 'Configure your GitHub access' : 'Enter passphrase to decrypt token'}
+                    <h2 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-2)' }}>
+                        {showSetup ? 'Setup CMS Security' : 'Unlock Dashboard'}
+                    </h2>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
+                        {showSetup ? 'Connect to your private GitHub repo' : 'Enter passphrase to decrypt local keys'}
                     </p>
                 </header>
 
