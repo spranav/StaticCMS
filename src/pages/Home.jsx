@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getManifest } from '../lib/cms';
-import { Calendar, ArrowRight, Lightbulb, Users, Globe, BookOpen, Brain, Zap } from 'lucide-react';
+import Fuse from 'fuse.js';
+import { Calendar, ArrowRight, Lightbulb, Users, Globe, BookOpen, Brain, Zap, Search } from 'lucide-react';
 
 // Helper to get raw image URL
 const getImageUrl = (path) => {
@@ -16,13 +17,19 @@ const getImageUrl = (path) => {
 export default function Home() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         getManifest().then((data) => {
-            setPosts(data);
+            const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setPosts(sorted);
             setLoading(false);
         });
     }, []);
+
+    // Search Logic
+    const fuse = new Fuse(posts, { keys: ['title', 'excerpt'] });
+    const filteredPosts = search ? fuse.search(search).map(r => r.item) : posts;
 
     return (
         <div>
@@ -96,11 +103,23 @@ export default function Home() {
                         Explore scientific articles, philosophical postulates, and creative research content.
                     </p>
 
+                    {/* Search Bar */}
+                    <div style={{ maxWidth: '400px', margin: '0 auto var(--space-8)', position: 'relative' }}>
+                        <Search size={20} style={{ position: 'absolute', left: '12px', top: '12px', color: 'var(--color-text-muted)' }} />
+                        <input
+                            type="text"
+                            placeholder="Search articles..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            style={{ paddingLeft: '40px', borderRadius: '50px', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-sm)' }}
+                        />
+                    </div>
+
                     {loading ? (
                         <div style={{ textAlign: 'center', padding: 'var(--space-12)' }}>Loading content...</div>
                     ) : (
                         <div className="grid-3">
-                            {posts.map((post) => (
+                            {filteredPosts.map((post) => (
                                 <article key={post.slug} className="card" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                                     {post.coverImage && (
                                         <div style={{ height: '200px', overflow: 'hidden', flexShrink: 0 }}>
@@ -137,8 +156,10 @@ export default function Home() {
                             ))}
                         </div>
                     )}
-                    {posts.length === 0 && !loading && (
-                        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>No posts found.</p>
+                    {filteredPosts.length === 0 && !loading && (
+                        <div style={{ textAlign: 'center', color: 'var(--color-text-muted)', marginTop: 'var(--space-4)' }}>
+                            {search ? 'No matches found.' : 'No posts found.'}
+                        </div>
                     )}
                 </div>
             </section>
