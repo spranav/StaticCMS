@@ -3,7 +3,7 @@
  * Interacts directly with the GitHub Repository to save content.
  */
 
-const BASE_URL = 'https://api.github.com/repos';
+const BASE_URL = 'https://api.github.com';
 
 /**
  * Helper to make authenticated requests.
@@ -33,7 +33,8 @@ const request = async (endpoint, token, options = {}) => {
  */
 export const getFileSha = async (repo, path, token) => {
     try {
-        const data = await request(`${repo}/contents/${path}`, token);
+        // endpoint: repos/owner/repo/contents/path
+        const data = await request(`repos/${repo}/contents/${path}`, token);
         return data.sha;
     } catch (error) {
         if (error.message.includes('404')) return null;
@@ -63,7 +64,7 @@ export const uploadFile = async (repo, path, content, message, token, sha = null
         body.sha = sha;
     }
 
-    return await request(`${repo}/contents/${path}`, token, {
+    return await request(`repos/${repo}/contents/${path}`, token, {
         method: 'PUT',
         body: JSON.stringify(body),
     });
@@ -86,7 +87,7 @@ export const uploadAsset = async (repo, path, arrayBuffer, token) => {
     }
     const encodedContent = btoa(binary);
 
-    return await request(`${repo}/contents/${path}`, token, {
+    return await request(`repos/${repo}/contents/${path}`, token, {
         method: 'PUT',
         body: JSON.stringify({
             message: `Upload asset ${path}`,
