@@ -35,7 +35,9 @@ export default function Login() {
         e.preventDefault();
         setError('');
         try {
-            await setup(rawToken, passphrase, repoPath);
+            const cleanToken = rawToken.trim();
+            const cleanRepo = repoPath.trim();
+            await setup(cleanToken, passphrase, cleanRepo);
             navigate('/admin/dashboard');
         } catch (err) {
             setError(err.message || "Failed to setup. Check token validity.");
