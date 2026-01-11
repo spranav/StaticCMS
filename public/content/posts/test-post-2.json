@@ -1,6 +1,6 @@
 {
   "title": "Test post 2",
   "date": "2026-01-11T00:00:00.000Z",
-  "content": "Test post 2 Content\n![A professional photograph, soft pastel colors, showcasing a stylish young man and woman enjoying ShakeBean coffee. Soft light, gentle contrast, and soothing tones create a calm ambiance. ShakeBean packaging is subtly integrated, with a warm.jpg](/assets/images/1768138191196-AprofessionalphotographsoftpastelcolorsshowcasingastylishyoungmanandwomanenjoyingShakeBeancoffee.Softlightgentlecontrastandsoothingtonescreateacalmambiance.ShakeBeanpackagingissubtlyintegratedwithawarm.jpg)\n",
-  "coverImage": "/assets/images/1768138191196-AprofessionalphotographsoftpastelcolorsshowcasingastylishyoungmanandwomanenjoyingShakeBeancoffee.Softlightgentlecontrastandsoothingtonescreateacalmambiance.ShakeBeanpackagingissubtlyintegratedwithawarm.jpg"
+  "content": "Test post 2 Content\n![A professional **photograph**, soft pastel colors, showcasing a stylish **young** man and woman enjoying ShakeBean coffee. Soft light, gentle contrast, and >\n\n\n soothing tones create a calm ambiance. ShakeBean packaging is subtly integrated, with a warm.jpg](/assets/images/1768138191196-AprofessionalphotographsoftpastelcolorsshowcasingastylishyoungmanandwomanenjoyingShakeBeancoffee.Softlightgentlecontrastandsoothingtonescreateacalmambiance.ShakeBeanpackagingissubtlyintegratedwithawarm.jpg)\n\n![A_poster_on_2k_202601060100 (1).jpeg](/assets/images/1768139049047-Aposteron2k2026010601001.jpeg)\n",
+  "coverImage": "/assets/images/1768139049047-Aposteron2k2026010601001.jpeg"
 }
