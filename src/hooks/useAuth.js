@@ -47,6 +47,7 @@ export function AuthProvider({ children }) {
         if (!stored) throw new Error("No token found");
 
         const decrypted = decryptToken(stored, passphrase);
+        console.log("Login successful, setting token...");
         setToken(decrypted); // Set session
         return true;
     };

@@ -14,7 +14,9 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log("Dashboard Check - Loading:", authLoading, "Token:", !!token);
         if (!authLoading && !token) {
+            console.log("Dashboard: Not authenticated, redirecting to login");
             navigate('/admin/login');
         }
     }, [authLoading, token, navigate]);

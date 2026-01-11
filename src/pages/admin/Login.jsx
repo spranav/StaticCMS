@@ -20,10 +20,13 @@ export default function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        console.log("Attempting login...");
         try {
             login(passphrase);
+            console.log("Login function completed, navigating...");
             navigate('/admin/dashboard');
         } catch (err) {
+            console.error("Login failed:", err);
             setError("Incorrect passphrase.");
         }
     };
