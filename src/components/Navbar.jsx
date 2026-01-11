@@ -9,7 +9,7 @@ export default function Navbar() {
     const links = [
         { name: 'Home', path: '/' },
         { name: 'About Mission 2031', path: '/about' },
-        { name: 'How MSR Works', path: '/#msr' },
+        { name: 'How MSR Works', path: '/msr' },
         { name: 'Articles & Ideas', path: '/#articles' },
         { name: 'Admin', path: '/admin' },
     ];

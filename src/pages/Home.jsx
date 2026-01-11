@@ -34,16 +34,19 @@ export default function Home() {
     return (
         <div>
             {/* Hero Section */}
-            <section className="hero-section" style={{ background: 'linear-gradient(180deg, var(--color-surface-50) 0%, transparent 100%)', paddingBottom: 0 }}>
+            <section className="hero-section" style={{ background: 'linear-gradient(180deg, var(--color-surface-50) 0%, transparent 100%)' }}>
                 <div className="container">
-                    <div style={{ marginBottom: 'var(--space-8)', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
-                        <img
-                            src="/assets/images/mission-2031-banner.jpg"
-                            alt="Accelerate Research with Mission 2031"
-                            style={{ width: '100%', height: 'auto', display: 'block' }}
-                        />
+                    <div style={{ marginBottom: 'var(--space-4)', display: 'inline-block', padding: '4px 12px', background: 'var(--color-brand-50)', color: 'var(--color-brand-600)', borderRadius: '20px', fontSize: '0.9rem', fontWeight: '600' }}>
+                        Welcome to the Future of Research
                     </div>
-                    <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', marginBottom: 'var(--space-8)' }}>
+                    <h1 style={{ fontSize: '3.5rem', marginBottom: 'var(--space-6)', lineHeight: '1.1' }}>
+                        Accelerate Research with <br />
+                        <span className="text-gradient">Mission 2031</span>
+                    </h1>
+                    <p style={{ fontSize: '1.25rem', color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto var(--space-8)' }}>
+                        A global, inclusive knowledge-sharing system designed to accelerate scientific discovery and collaborative imagination for a sustainable future.
+                    </p>
+                    <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center' }}>
                         <a href="#articles" className="btn btn-primary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem' }}>
                             Start Reading
                         </a>

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Post from './pages/Post';
 import About from './pages/About';
+import MSR from './pages/MSR';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 import Editor from './pages/admin/Editor';
@@ -19,6 +20,7 @@ function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/msr" element={<MSR />} />
             <Route path="/post/:slug" element={<Post />} />
           </Route>
 
