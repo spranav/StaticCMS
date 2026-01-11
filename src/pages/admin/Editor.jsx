@@ -115,17 +115,24 @@ export default function Editor() {
         setStatus('Saving...');
 
         try {
+            // Extract first image from markdown for cover
+            const imageMatch = content.match(/!\[.*?\]\((.*?)\)/);
+            const coverImage = imageMatch ? imageMatch[1] : null;
+
             // 1. Prepare Data
             const postData = {
                 title,
                 date: new Date(date).toISOString(),
-                content
+                content,
+                coverImage // Save to post file too
             };
+
             const manifestEntry = {
                 slug,
                 title,
                 date: new Date(date).toISOString(),
-                excerpt: excerpt || content.substring(0, 150) + '...'
+                excerpt: excerpt || content.substring(0, 150) + '...',
+                coverImage // Add to manifest for listing
             };
 
             // 2. Commit Manifest first (or last? If we do manifest first, we claim the slug)

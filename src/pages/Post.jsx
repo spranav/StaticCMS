@@ -41,6 +41,15 @@ export default function Post() {
 
             <article>
                 <header style={{ marginBottom: 'var(--space-8)' }}>
+                    {post.coverImage && (
+                        <div style={{ marginBottom: 'var(--space-6)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', maxHeight: '400px' }}>
+                            <img
+                                src={post.coverImage}
+                                alt={post.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                        </div>
+                    )}
                     <h1 style={{ fontSize: '3rem', marginBottom: 'var(--space-4)' }}>{post.title}</h1>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-muted)' }}>
                         <Calendar size={18} />

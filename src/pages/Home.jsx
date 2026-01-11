@@ -32,20 +32,31 @@ export default function Home() {
 
             <div style={{ display: 'grid', gap: 'var(--space-6)' }}>
                 {posts.map((post) => (
-                    <article key={post.slug} className="card">
-                        <h2 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)' }}>
-                            <Link to={`/post/${post.slug}`} style={{ color: 'var(--color-text-main)' }}>
-                                {post.title}
+                    <article key={post.slug} className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                        {post.coverImage && (
+                            <div style={{ height: '200px', overflow: 'hidden' }}>
+                                <img
+                                    src={post.coverImage}
+                                    alt={post.title}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
+                            </div>
+                        )}
+                        <div style={{ padding: '2em' }}>
+                            <h2 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)' }}>
+                                <Link to={`/post/${post.slug}`} style={{ color: 'var(--color-text-main)' }}>
+                                    {post.title}
+                                </Link>
+                            </h2>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: 'var(--space-4)' }}>
+                                <Calendar size={16} />
+                                <span>{new Date(post.date).toLocaleDateString()}</span>
+                            </div>
+                            <p style={{ marginBottom: 'var(--space-4)', color: 'var(--color-text-muted)' }}>{post.excerpt}</p>
+                            <Link to={`/post/${post.slug}`} className="btn btn-primary">
+                                Read Article <ArrowRight size={16} />
                             </Link>
-                        </h2>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: 'var(--space-4)' }}>
-                            <Calendar size={16} />
-                            <span>{new Date(post.date).toLocaleDateString()}</span>
                         </div>
-                        <p style={{ marginBottom: 'var(--space-4)', color: 'var(--color-text-muted)' }}>{post.excerpt}</p>
-                        <Link to={`/post/${post.slug}`} className="btn btn-primary">
-                            Read Article <ArrowRight size={16} />
-                        </Link>
                     </article>
                 ))}
 
