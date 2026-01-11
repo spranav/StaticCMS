@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { encryptToken, decryptToken } from '../lib/crypto';
 import { getUser } from '../lib/github';
 
 const STORAGE_KEY = 'cms_encrypted_token';
 const REPO_KEY = 'cms_repo_path'; // "owner/repo"
 
-export function useAuth() {
+// Create Context
+const AuthContext = createContext(null);
+
+export function AuthProvider({ children }) {
     const [token, setToken] = useState(null); // Decrypted session token
     const [isEncrypted, setIsEncrypted] = useState(false); // Does a token exist in localStorage?
     const [repo, setRepo] = useState('');
@@ -58,7 +61,19 @@ export function useAuth() {
         localStorage.removeItem(REPO_KEY);
         setToken(null);
         setIsEncrypted(false);
+        setRepo('');
     }
 
-    return { token, isEncrypted, repo, loading, setup, login, logout, clearStorage };
+    const value = { token, isEncrypted, repo, loading, setup, login, logout, clearStorage };
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+// Custom Hook to use the Context
+export function useAuth() {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
 }
