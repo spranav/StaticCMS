@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getManifest } from '../lib/cms';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight, Lightbulb, Users, Globe, BookOpen, Brain, Zap } from 'lucide-react';
 
 // Helper to get raw image URL
 const getImageUrl = (path) => {
@@ -9,7 +9,6 @@ const getImageUrl = (path) => {
     if (path.startsWith('http')) return path;
     const REPO = 'spranav/StaticCMS';
     const BRANCH = 'main';
-    // Remove leading slash if present
     const cleanPath = path.startsWith('/') ? path.slice(1) : path;
     return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public/${cleanPath}`;
 };
@@ -25,56 +24,124 @@ export default function Home() {
         });
     }, []);
 
-
-    if (loading) {
-        return (
-            <div className="container" style={{ marginTop: 'var(--space-12)', textAlign: 'center' }}>
-                <p>Loading content...</p>
-            </div>
-        );
-    }
-
     return (
-        <div className="container" style={{ marginTop: 'var(--space-12)', paddingBottom: 'var(--space-12)' }}>
-            <header style={{ marginBottom: 'var(--space-8)', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '2.5rem', marginBottom: 'var(--space-2)' }}>The Static Blog</h1>
-                <p style={{ color: 'var(--color-text-muted)' }}>Powered by Serverless JS CMS</p>
-            </header>
+        <div>
+            {/* Hero Section */}
+            <section className="hero-section" style={{ background: 'linear-gradient(180deg, var(--color-surface-50) 0%, transparent 100%)' }}>
+                <div className="container">
+                    <div style={{ marginBottom: 'var(--space-4)', display: 'inline-block', padding: '4px 12px', background: 'var(--color-brand-50)', color: 'var(--color-brand-600)', borderRadius: '20px', fontSize: '0.9rem', fontWeight: '600' }}>
+                        Welcome to the Future of Research
+                    </div>
+                    <h1 style={{ fontSize: '3.5rem', marginBottom: 'var(--space-6)', lineHeight: '1.1' }}>
+                        Accelerate Research with <br />
+                        <span className="text-gradient">Mission 2031</span>
+                    </h1>
+                    <p style={{ fontSize: '1.25rem', color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto var(--space-8)' }}>
+                        A global, inclusive knowledge-sharing system designed to accelerate scientific discovery and collaborative imagination for a sustainable future.
+                    </p>
+                    <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center' }}>
+                        <a href="#articles" className="btn btn-primary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem' }}>
+                            Start Reading
+                        </a>
+                        <a href="#about" className="btn btn-secondary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem' }}>
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </section>
 
-            <div style={{ display: 'grid', gap: 'var(--space-6)' }}>
-                {posts.map((post) => (
-                    <article key={post.slug} className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                        {post.coverImage && (
-                            <div style={{ height: '200px', overflow: 'hidden' }}>
-                                <img
-                                    src={getImageUrl(post.coverImage)}
-                                    alt={post.title}
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                />
-                            </div>
-                        )}
-                        <div style={{ padding: '2em' }}>
-                            <h2 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)' }}>
-                                <Link to={`/post/${post.slug}`} style={{ color: 'var(--color-text-main)' }}>
-                                    {post.title}
-                                </Link>
-                            </h2>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: 'var(--space-4)' }}>
-                                <Calendar size={16} />
-                                <span>{new Date(post.date).toLocaleDateString()}</span>
-                            </div>
-                            <p style={{ marginBottom: 'var(--space-4)', color: 'var(--color-text-muted)' }}>{post.excerpt}</p>
-                            <Link to={`/post/${post.slug}`} className="btn btn-primary">
-                                Read Article <ArrowRight size={16} />
-                            </Link>
+            {/* Purpose Section */}
+            <section id="about" className="section">
+                <div className="container">
+                    <h2 className="section-title">Purpose of the Platform</h2>
+                    <div className="grid-3">
+                        <div className="card">
+                            <div style={{ color: 'var(--color-brand-600)', marginBottom: 'var(--space-4)' }}><Globe size={32} /></div>
+                            <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-2)' }}>Global Inclusivity</h3>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Provide a voice and visibility to formal and informal researchers across the globe.</p>
                         </div>
-                    </article>
-                ))}
+                        <div className="card">
+                            <div style={{ color: 'var(--color-brand-600)', marginBottom: 'var(--space-4)' }}><Zap size={32} /></div>
+                            <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-2)' }}>Accelerate Discovery</h3>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Accelerate scientific and intellectual research through Multilevel Scientific Research (MSR).</p>
+                        </div>
+                        <div className="card">
+                            <div style={{ color: 'var(--color-brand-600)', marginBottom: 'var(--space-4)' }}><Brain size={32} /></div>
+                            <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-2)' }}>Collaborative Imagination</h3>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Enable idea generation, validation, and application for long-term sustainability.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                {posts.length === 0 && (
-                    <p style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>No posts found.</p>
-                )}
-            </div>
+            {/* Target Users */}
+            <section className="section" style={{ background: 'var(--color-surface-50)' }}>
+                <div className="container">
+                    <h2 className="section-title">Who is this for?</h2>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)', justifyContent: 'center' }}>
+                        {['Students & Scholars', 'Informal Researchers', 'Formal Scientists', 'Policy Thinkers', 'Innovators'].map(user => (
+                            <div key={user} style={{ background: 'white', padding: '1rem 2rem', borderRadius: '50px', boxShadow: 'var(--shadow-sm)', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <Users size={18} className="text-gradient" /> {user}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Content Types / Latest Articles */}
+            <section id="articles" className="section">
+                <div className="container">
+                    <h2 className="section-title">Articles & Ideas</h2>
+                    <p style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto var(--space-8)', color: 'var(--color-text-muted)' }}>
+                        Explore scientific articles, philosophical postulates, and creative research content.
+                    </p>
+
+                    {loading ? (
+                        <div style={{ textAlign: 'center', padding: 'var(--space-12)' }}>Loading content...</div>
+                    ) : (
+                        <div className="grid-3">
+                            {posts.map((post) => (
+                                <article key={post.slug} className="card" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                                    {post.coverImage && (
+                                        <div style={{ height: '200px', overflow: 'hidden', flexShrink: 0 }}>
+                                            <img
+                                                src={getImageUrl(post.coverImage)}
+                                                alt={post.title}
+                                                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
+                                                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                                                onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                                            />
+                                        </div>
+                                    )}
+                                    <div style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-text-muted)', fontSize: '0.85rem', marginBottom: 'var(--space-3)' }}>
+                                            <Calendar size={14} />
+                                            <span>{new Date(post.date).toLocaleDateString()}</span>
+                                            <span style={{ margin: '0 4px' }}>•</span>
+                                            <BookOpen size={14} />
+                                            <span>Article</span>
+                                        </div>
+                                        <h3 style={{ fontSize: '1.25rem', marginBottom: 'var(--space-3)', lineHeight: '1.3' }}>
+                                            <Link to={`/post/${post.slug}`} style={{ color: 'var(--color-text-main)' }}>
+                                                {post.title}
+                                            </Link>
+                                        </h3>
+                                        <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', marginBottom: 'var(--space-4)', flex: 1 }}>
+                                            {post.excerpt}
+                                        </p>
+                                        <Link to={`/post/${post.slug}`} style={{ color: 'var(--color-brand-600)', fontWeight: '600', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                            Read More <ArrowRight size={16} />
+                                        </Link>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    )}
+                    {posts.length === 0 && !loading && (
+                        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>No posts found.</p>
+                    )}
+                </div>
+            </section>
         </div>
     );
 }

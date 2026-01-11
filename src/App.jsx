@@ -7,14 +7,18 @@ import Editor from './pages/admin/Editor';
 import Settings from './pages/admin/Settings';
 
 
+import PublicLayout from './components/PublicLayout';
+
 function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/post/:slug" element={<Post />} />
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/post/:slug" element={<Post />} />
+          </Route>
 
           {/* Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
