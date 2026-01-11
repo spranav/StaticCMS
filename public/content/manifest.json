@@ -1,5 +1,12 @@
 [
   {
+    "slug": "test-post-2",
+    "title": "Test post 2",
+    "date": "2026-01-11T00:00:00.000Z",
+    "excerpt": "Test post 2 Content\n![A professional photograph, soft pastel colors, showcasing a stylish young man and woman enjoying ShakeBean coffee. Soft light, g...",
+    "coverImage": "/assets/images/1768138191196-AprofessionalphotographsoftpastelcolorsshowcasingastylishyoungmanandwomanenjoyingShakeBeancoffee.Softlightgentlecontrastandsoothingtonescreateacalmambiance.ShakeBeanpackagingissubtlyintegratedwithawarm.jpg"
+  },
+  {
     "slug": "mission-2032",
     "title": "Mission 2032",
     "date": "2026-01-11T00:00:00.000Z",
